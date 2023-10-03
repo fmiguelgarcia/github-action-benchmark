@@ -364,7 +364,6 @@ function extractRustIaiResult(output: string): BenchmarkResult[] {
     let bench_title = 'unknown';
 
     for (const line of lines) {
-
         // Try to parse bench title
         const bench_title_match = line.match(bench_title_ext);
         if (bench_title_match) {
