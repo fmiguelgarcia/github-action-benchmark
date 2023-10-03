@@ -1,0 +1,14 @@
+commitment_builder_32
+  Instructions:         42839769819 (+0.016940%)
+  L1 Accesses:          52714019394 (+0.020115%)
+  L2 Accesses:               494335 (+9.247960%)
+  RAM Accesses:              102589 (+3.092089%)
+  Estimated Cycles:     52720081684 (+0.020714%)
+
+commitment_builder_128
+  Instructions:         53394737160 (-0.000864%)
+  L1 Accesses:          67276586986 (-0.001002%)
+  L2 Accesses:               976020 (+0.014039%)
+  RAM Accesses:              265268 (-0.457807%)
+  Estimated Cycles:     67290751466 (-0.001064%)
+
