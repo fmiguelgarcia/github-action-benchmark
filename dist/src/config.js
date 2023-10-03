@@ -26,6 +26,7 @@ const os = __importStar(require("os"));
 const path = __importStar(require("path"));
 exports.VALID_TOOLS = [
     'cargo',
+    'rustIai',
     'go',
     'benchmarkjs',
     'benchmarkluau',
