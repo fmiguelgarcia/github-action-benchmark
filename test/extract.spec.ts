@@ -138,6 +138,62 @@ describe('extractResult()', function () {
             ],
         },
         {
+            tool: 'rustIai',
+            file: 'rustIai_output.txt',
+            expected: [
+                {
+                    name: 'commitment_builder_32 Instructions',
+                    unit: 'ops',
+                    value: 42839769819,
+                },
+                {
+                    name: 'commitment_builder_32 L1 Accesses',
+                    unit: 'ops',
+                    value: 52714019394,
+                },
+                {
+                    name: 'commitment_builder_32 L2 Accesses',
+                    unit: 'ops',
+                    value: 494335,
+                },
+                {
+                    name: 'commitment_builder_32 RAM Accesses',
+                    unit: 'ops',
+                    value: 102589,
+                },
+                {
+                    name: 'commitment_builder_32 Estimated Cycles',
+                    unit: 'ops',
+                    value: 52720081684,
+                },
+                {
+                    name: 'commitment_builder_128 Instructions',
+                    unit: 'ops',
+                    value: 53394737160,
+                },
+                {
+                    name: 'commitment_builder_128 L1 Accesses',
+                    unit: 'ops',
+                    value: 67276586986,
+                },
+                {
+                    name: 'commitment_builder_128 L2 Accesses',
+                    unit: 'ops',
+                    value: 976020,
+                },
+                {
+                    name: 'commitment_builder_128 RAM Accesses',
+                    unit: 'ops',
+                    value: 265268,
+                },
+                {
+                    name: 'commitment_builder_128 Estimated Cycles',
+                    unit: 'ops',
+                    value: 67290751466,
+                },
+            ],
+        },
+        {
             tool: 'catch2',
             expected: [
                 {

@@ -339,6 +339,56 @@ function extractCargoResult(output: string): BenchmarkResult[] {
     return ret;
 }
 
+/// Iai output example:
+/// ```
+/// commitment_builder_32
+///     Instructions:         42839769819 (+0.016940%)
+///     L1 Accesses:          52714019394 (+0.020115%)
+///     L2 Accesses:               494335 (+9.247960%)
+///     RAM Accesses:              102589 (+3.092089%)
+///     Estimated Cycles:     52720081684 (+0.020714%)
+///
+/// commitment_builder_128
+///     Instructions:         53394737160 (-0.000864%)
+///     L1 Accesses:          67276586986 (-0.001002%)
+///     L2 Accesses:               976020 (+0.014039%)
+///     RAM Accesses:              265268 (-0.457807%)
+///     Estimated Cycles:     67290751466 (-0.001064%)
+///
+/// ```
+function extractRustIaiResult(output: string): BenchmarkResult[] {
+    const lines = output.split(/\r?\n/g);
+    const ret = [];
+    const bench_title_ext = /^([a-zA-Z0-9_]+)$/;
+    const counter_ext = /^\s+(\w(\w|\s)+):\s+(\d+)\s+\(([+-]\d+\.\d+)%\)$/;
+    let bench_title = 'unknown';
+
+    for (const line of lines) {
+
+        // Try to parse bench title
+        const bench_title_match = line.match(bench_title_ext);
+        if (bench_title_match) {
+            bench_title = bench_title_match[1].trim();
+            continue;
+        }
+
+        // Tyr to extract counter lines
+        const counter = line.match(counter_ext);
+        if (counter) {
+            const name = bench_title + ' ' + counter[1].trim();
+            const value = parseInt(counter[3].trim(), 10);
+
+            ret.push({
+                name,
+                value,
+                unit: 'ops',
+            });
+        }
+    }
+
+    return ret;
+}
+
 function extractGoResult(output: string): BenchmarkResult[] {
     const lines = output.split(/\r?\n/g);
     const ret = [];
@@ -692,6 +742,9 @@ export async function extractResult(config: Config): Promise<Benchmark> {
     switch (tool) {
         case 'cargo':
             benches = extractCargoResult(output);
+            break;
+        case 'rustIai':
+            benches = extractRustIaiResult(output);
             break;
         case 'go':
             benches = extractGoResult(output);
