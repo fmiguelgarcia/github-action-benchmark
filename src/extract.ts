@@ -358,9 +358,9 @@ function extractCargoResult(output: string): BenchmarkResult[] {
 /// ```
 function extractRustIaiResult(output: string): BenchmarkResult[] {
     const lines = output.split(/\r?\n/g);
-    const ret = [];
     const bench_title_ext = /^([a-zA-Z0-9_]+)$/;
     const counter_ext = /^\s+(\w(\w|\s)+):\s+(\d+)\s+\(([+-]\d+\.\d+)%\)$/;
+    const ret = [];
     let bench_title = 'unknown';
 
     for (const line of lines) {
@@ -380,6 +380,7 @@ function extractRustIaiResult(output: string): BenchmarkResult[] {
             ret.push({
                 name,
                 value,
+                range: '± 0',
                 unit: 'ops',
             });
         }

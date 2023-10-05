@@ -1,3 +1,34 @@
+running 27 tests
+test __construct_runtime_integrity_test::runtime_integrity_tests ... ignored
+test constants::staking::__pallet_staking_reward_curve_test_module::reward_curve_piece_count ... ignored
+test constants::staking::__pallet_staking_reward_curve_test_module::reward_curve_precision ... ignored
+test data_root_tests::data_root_filter::submit_data_0 ... ignored
+test data_root_tests::decode_submit_call ... ignored
+test impls_tests::multiplier_tests::congested_chain_simulation ... ignored
+test impls_tests::multiplier_tests::min_change_per_day ... ignored
+test impls_tests::multiplier_tests::multiplier_can_grow_from_zero ... ignored
+test impls_tests::multiplier_tests::multiplier_cannot_go_below_limit ... ignored
+test impls_tests::multiplier_tests::stateless_weight_mul ... ignored
+test impls_tests::multiplier_tests::time_to_reach_zero ... ignored
+test impls_tests::multiplier_tests::truth_value_update_poc_works ... ignored
+test impls_tests::multiplier_tests::weight_mul_decrease_on_small_block ... ignored
+test impls_tests::multiplier_tests::weight_mul_grow_on_big_block ... ignored
+test impls_tests::multiplier_tests::weight_to_fee_should_not_overflow_on_large_weights ... ignored
+test migration::tests::democracy_test ... ignored
+test tests::call_size::_da_call_size_expects_32 ... ignored
+test tests::call_size::_nomad_bridge_call_size_expects_48 ... ignored
+test tests::call_size::_nomad_home_call_size_expects_152 ... ignored
+test tests::call_size::_nomad_updater_manager_call_size_expects_0 ... ignored
+test tests::call_size::_runtime_call_size_expects_160 ... ignored
+test tests::call_size::_system_call_size_expects_32 ... ignored
+test tests::check_whitelist ... ignored
+test tests::decode_app_unchecked_extrinsics::set_timestamp_block_242 ... ignored
+test tests::decode_app_unchecked_extrinsics::transfer_1_avl_to_bob ... ignored
+test tests::perbill_as_onchain_accuracy ... ignored
+test tests::validate_transaction_submitter_bounds ... ignored
+
+test result: ok. 0 passed; 0 failed; 27 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
 commitment_builder_32
   Instructions:         42839769819 (+0.016940%)
   L1 Accesses:          52714019394 (+0.020115%)
