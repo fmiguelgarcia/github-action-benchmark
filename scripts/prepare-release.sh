@@ -39,7 +39,7 @@ npm install
 npm run build
 npm run lint
 npm test
-npm prune --production
+npm prune --omit=dev
 
 rm -rf .release
 mkdir -p .release
