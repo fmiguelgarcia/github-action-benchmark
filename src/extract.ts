@@ -2,6 +2,7 @@
 import { promises as fs } from 'fs';
 import * as github from '@actions/github';
 import { Config, ToolType } from './config';
+import * as core from '@actions/core';
 
 export interface BenchmarkResult {
     name: string;
@@ -364,18 +365,22 @@ function extractRustIaiResult(output: string): BenchmarkResult[] {
     let bench_title = 'unknown';
 
     for (const line of lines) {
+        core.info(`Parse line: ${line}`);
         // Try to parse bench title
         const bench_title_match = line.match(bench_title_ext);
         if (bench_title_match) {
             bench_title = bench_title_match[1].trim();
+            core.notice(`Found bench title: ${bench_title}`);
             continue;
         }
 
         // Tyr to extract counter lines
         const counter = line.match(counter_ext);
         if (counter) {
+            core.info(`Found counter: ${counter[1]} ${counter[3]}`);
             const name = bench_title + ' ' + counter[1].trim();
             const value = parseInt(counter[3].trim(), 10);
+            core.info(`Counter into Ret, name:${name} value:${value}`);
 
             ret.push({
                 name,
@@ -386,6 +391,7 @@ function extractRustIaiResult(output: string): BenchmarkResult[] {
         }
     }
 
+    core.info(`Final Ret: ${JSON.stringify(ret)}`);
     return ret;
 }
 
@@ -784,7 +790,9 @@ export async function extractResult(config: Config): Promise<Benchmark> {
     }
 
     if (benches.length === 0) {
-        throw new Error(`No benchmark result was found in ${config.outputFilePath}. Benchmark output was '${output}'`);
+        throw new Error(
+            `No benchmark result was found in ${config.outputFilePath}. Tool '${tool}', Benchmark output was '${output}'`,
+        );
     }
 
     const commit = await getCommit(githubToken, ref);
