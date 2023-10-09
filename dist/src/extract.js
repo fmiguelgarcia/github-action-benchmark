@@ -23,6 +23,7 @@ exports.extractResult = void 0;
 /* eslint-disable @typescript-eslint/naming-convention */
 const fs_1 = require("fs");
 const github = __importStar(require("@actions/github"));
+const core = __importStar(require("@actions/core"));
 function getHumanReadableUnitValue(seconds) {
     if (seconds < 1.0e-6) {
         return [seconds * 1e9, 'nsec'];
@@ -144,17 +145,21 @@ function extractRustIaiResult(output) {
     const ret = [];
     let bench_title = 'unknown';
     for (const line of lines) {
+        core.info(`Parse line: ${line}`);
         // Try to parse bench title
         const bench_title_match = line.match(bench_title_ext);
         if (bench_title_match) {
             bench_title = bench_title_match[1].trim();
+            core.notice(`Found bench title: ${bench_title}`);
             continue;
         }
         // Tyr to extract counter lines
         const counter = line.match(counter_ext);
         if (counter) {
+            core.info(`Found counter: ${counter[1]} ${counter[3]}`);
             const name = bench_title + ' ' + counter[1].trim();
             const value = parseInt(counter[3].trim(), 10);
+            core.info(`Counter into Ret, name:${name} value:${value}`);
             ret.push({
                 name,
                 value,
@@ -163,6 +168,7 @@ function extractRustIaiResult(output) {
             });
         }
     }
+    core.info(`Final Ret: ${JSON.stringify(ret)}`);
     return ret;
 }
 function extractGoResult(output) {
@@ -501,7 +507,7 @@ async function extractResult(config) {
             throw new Error(`FATAL: Unexpected tool: '${tool}'`);
     }
     if (benches.length === 0) {
-        throw new Error(`No benchmark result was found in ${config.outputFilePath}. Benchmark output was '${output}'`);
+        throw new Error(`No benchmark result was found in ${config.outputFilePath}. Tool '${tool}', Benchmark output was '${output}'`);
     }
     const commit = await getCommit(githubToken, ref);
     return {
