@@ -350,17 +350,17 @@ function extractCargoResult(output: string): BenchmarkResult[] {
 ///     Estimated Cycles:     52720081684 (+0.020714%)
 ///
 /// commitment_builder_128
-///     Instructions:         53394737160 (-0.000864%)
-///     L1 Accesses:          67276586986 (-0.001002%)
-///     L2 Accesses:               976020 (+0.014039%)
-///     RAM Accesses:              265268 (-0.457807%)
-///     Estimated Cycles:     67290751466 (-0.001064%)
+///     Instructions:         53394737160
+///     L1 Accesses:          67276586986
+///     L2 Accesses:               976020
+///     RAM Accesses:              265268
+///     Estimated Cycles:     67290751466
 ///
 /// ```
 function extractRustIaiResult(output: string): BenchmarkResult[] {
     const lines = output.split(/\r?\n/g);
     const bench_title_ext = /^([a-zA-Z0-9_]+)$/;
-    const counter_ext = /^\s+(\w(\w|\s)+):\s+(\d+)\s+\(([+-]\d+\.\d+)%\)$/;
+    const counter_ext = /^\s+(\w(\w|\s)+):\s+(\d+)(\s+\(([+-]\d+\.\d+)%\))?$/;
     const ret = [];
     let bench_title = 'unknown';
 
