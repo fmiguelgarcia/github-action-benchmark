@@ -145,21 +145,20 @@ function extractRustIaiResult(output) {
     const ret = [];
     let bench_title = 'unknown';
     for (const line of lines) {
-        core.info(`Parse line: ${line}`);
+        core.debug(`Parse line: ${line}`);
         // Try to parse bench title
         const bench_title_match = line.match(bench_title_ext);
         if (bench_title_match) {
             bench_title = bench_title_match[1].trim();
-            core.notice(`Found bench title: ${bench_title}`);
+            core.debug(`Found bench title: ${bench_title}`);
             continue;
         }
         // Tyr to extract counter lines
         const counter = line.match(counter_ext);
         if (counter) {
-            core.info(`Found counter: ${counter[1]} ${counter[3]}`);
             const name = bench_title + ' ' + counter[1].trim();
             const value = parseInt(counter[3].trim(), 10);
-            core.info(`Counter into Ret, name:${name} value:${value}`);
+            core.debug(`Counter into Ret, name:${name} value:${value}`);
             ret.push({
                 name,
                 value,
